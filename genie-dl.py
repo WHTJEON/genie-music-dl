@@ -12,6 +12,7 @@ from datetime import datetime
 from datetime import date
 from pick import pick
 import configparser
+import questionary
 from utils import download
 
 parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021 vank0n (SJJeon) - All Rights Reserved.\033[0m',epilog="https://github.com/WHTJEON/genie-dl")
