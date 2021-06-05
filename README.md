@@ -29,14 +29,19 @@ $ pip install -r requirements.txt
 ```
 $ python3 genie-dl.py
 ```
+<img width="720" alt="스크린샷 2021-06-05 오후 8 59 39" src="https://user-images.githubusercontent.com/57805304/120890975-0096f880-c641-11eb-857a-9a541b4a5fbb.png">
+
 2. 인자 실행 (-i "Song, Album, Artist, Playlist URL")
 ```
 $ python3 genie-dl.py -i "https://www.genie.co.kr/detail/albumInfo?axnm=82038886"
 ```
+<img width="818" alt="스크린샷 2021-06-05 오후 9 01 39" src="https://user-images.githubusercontent.com/57805304/120891013-3f2cb300-c641-11eb-8fab-b14341925bd2.png">
+
 
 ## To be updated (업데이트 예정)
 * FLAC 다운로드 기능
 * UI 개선
+* Multi-Disk 앨범 다운로드 개선
 
 ## Legal Disclaimer
 This was made with educational purposes only. Use at your own risk. 
