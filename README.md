@@ -41,7 +41,8 @@ $ python3 genie-dl.py -i "https://www.genie.co.kr/detail/albumInfo?axnm=82038886
 ## To be updated (업데이트 예정)
 * FLAC 다운로드 기능
 * UI 개선
-* Multi-Disk 앨범 다운로드 개선
+* Settings 
+* Multi-Disc 앨범 다운로드 개선
 
 ## Legal Disclaimer
 This was made with educational purposes only. Use at your own risk. 
