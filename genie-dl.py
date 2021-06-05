@@ -11,7 +11,6 @@ from pyfiglet import Figlet
 from datetime import datetime
 from datetime import date
 from pick import pick
-from termcolor import colored
 import configparser
 import questionary
 from utils import download
