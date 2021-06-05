@@ -21,7 +21,7 @@
 * 지니뮤직 스트리밍 이용권 (종류 상관 X)
 * Python Packages (eda3, pyfiglet, pick)
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## Instructions (사용방법)
