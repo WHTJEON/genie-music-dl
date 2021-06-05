@@ -12,7 +12,6 @@ from datetime import datetime
 from datetime import date
 from pick import pick
 import configparser
-import questionary
 from utils import download
 
 parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021 vank0n (SJJeon) - All Rights Reserved.\033[0m',epilog="https://github.com/WHTJEON/genie-dl")
@@ -547,14 +546,6 @@ def main():
 	
 	divider()
 	
-def main_alt():
-	import inquirer
-	options = ['Download Song / Album / Playlist', 'Download Real-Time Chart', 'View Real-Time Chart', 'Search Song','Search Album','Search Artist','Exit']
-	questions = [
-		inquirer.List('option',message="Welcome to GENIE-DL! Choose an option: ",choices=options)
-	]
-	selected = inquirer.prompt(questions)
-	print(selected)
 	
 if DOWNLOAD_CHART != True and INPUT_URL == None:
 	main()

@@ -1,4 +1,6 @@
 *.mp3
 *.flac
 settings.ini
+downloads/
+!downloads/youcandeleteme.txt
 __pycache__/
