@@ -1,0 +1,8 @@
+yt-dlp
+ffmpeg
+aria2p
+halo
+streamlink
+webdriver-manager
+selenium
+beautifulsoup4
