@@ -49,7 +49,6 @@ def read_config():
 		with open(config_file, 'w') as configfile:
 			config.write(configfile)
 		print("Successfully created config file!")
-		divider()
 		
 def is_win():
 	if platform.system() == 'Windows':
