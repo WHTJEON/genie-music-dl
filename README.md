@@ -18,7 +18,7 @@
 * 트랙, 앨범, 아티스트 검색 후 다운로드 (Search and Download)
 
 ## Requirements (요구사항)
-* 지니뮤직 스트리밍 이용권 (종류 상관 X)
+* 지니뮤직 스트리밍 이용권이 결제되어있는  (종류 상관 X)
 * Python Packages (eda3, pyfiglet, pick)
 ```
 $ pip install -r requirements.txt
