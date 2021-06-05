@@ -11,6 +11,7 @@ from pyfiglet import Figlet
 from datetime import datetime
 from datetime import date
 from pick import pick
+from termcolor import colored
 import configparser
 import questionary
 from utils import download
@@ -519,7 +520,7 @@ def main():
 
 	f = Figlet(font='slant')
 	text = f.renderText('GENIE-DL')
-	title = "\033[96m%s\033[0m"%text
+	title = text
 	options = ['Download Song / Album / Artist / Playlist', 'Download Real-Time Chart', 'View Real-Time Chart', 'Search and Download Song','Search and Download Album','Search and Download Artist','Exit']
 	selected = pick(options, title, multiselect=False, min_selection_count=1,indicator="=>")[1]
 	if selected == 0:
