@@ -5,6 +5,7 @@ import os
 import shutil
 import re
 import pathlib
+
 import argparse
 import platform
 from datetime import datetime
@@ -26,15 +27,16 @@ BITRATE = '320'
 EXTENSION = "mp3"
 DEVICE_ID = "002ebf12-a125-5ddf-a739-67c3c5d20177"
 
-SCRIPT_PATH=str(pathlib.Path(__file__).parent.absolute())
+SCRIPT_PATH = str(pathlib.Path(__file__).parent.absolute())
+#SCRIPT_PATH = str(pathlib.Path.home())
 OUTPUT_PATH = SCRIPT_PATH + "/downloads/"
 
 def read_config():
 	global ID, PW
 	config = configparser.ConfigParser()
-	config_file = "%s/settings.ini"%SCRIPT_PATH
+	config_file = "%s/genie-dl-settings.ini"%SCRIPT_PATH
 	if pathlib.Path(config_file).is_file():
-		config.read(SCRIPT_PATH+'/settings.ini')
+		config.read(SCRIPT_PATH+'/genie-dl-settings.ini')
 		ID = config['DEFAULT']['genie_id']
 		PW = config['DEFAULT']['genie_password']
 		
