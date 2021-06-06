@@ -17,12 +17,13 @@
 * 실시간 TOP 200 차트 보기 (Print Realtime Chart)
 * 트랙, 앨범, 아티스트 검색 후 다운로드 (Search and Download)
 
+## Getting Started
 
-## Prerequisites
+### Prerequisites
 * Python 3.7 or later
 * 지니뮤직 스트리밍 이용권 (종류 상관 X)
 
-## Installation (설치)
+### Installation (설치)
 1. Clone the repo
  ```sh
  $ git clone https://github.com/WHTJEON/genie-music-downloader.git
