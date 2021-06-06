@@ -17,12 +17,21 @@
 * 실시간 TOP 200 차트 보기 (Print Realtime Chart)
 * 트랙, 앨범, 아티스트 검색 후 다운로드 (Search and Download)
 
-## Requirements (요구사항)
-* 지니뮤직 스트리밍 이용권이 결제되어있는 계정 (종류 상관 X)
-* Python Packages (eda3, pyfiglet, pick)
-```
-$ pip install -r requirements.txt
-```
+
+## Prerequisites
+* Python 3.7 or later
+* 지니뮤직 스트리밍 이용권 (종류 상관 X)
+
+## Installation (설치)
+1. Clone the repo
+ ```sh
+ $ git clone https://github.com/WHTJEON/genie-music-downloader.git
+ $ cd genie-music-downloader
+ ```
+2. Install Required Packages
+ ```sh
+ $ pip install -r requirements.txt
+ ```
 
 ## Instructions (사용방법)
 1. 반응형 실행 후 옵션 선택
