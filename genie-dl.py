@@ -1,13 +1,12 @@
 import requests
 import json
 import os
-import eyed3
+#import eyed3
 import shutil
 import re
 import pathlib
 import argparse
 import platform
-from pyfiglet import Figlet
 from datetime import datetime
 from datetime import date
 from pick import pick
@@ -82,10 +81,10 @@ def prettifyNUM(num):
 		num = "%02d"%num	
 	return num
 
-def rename(file):
-	f = eyed3.load(file)
-	fnew = "%s. %s - %s.%s"%(prettifyNUM(f.tag.track_num[0]),f.tag.artist, f.tag.title,EXTENSION)
-	os.rename(file,fnew)
+#def rename(file):
+#	f = eyed3.load(file)
+#	fnew = "%s. %s - %s.%s"%(prettifyNUM(f.tag.track_num[0]),f.tag.artist, f.tag.title,EXTENSION)
+#	os.rename(file,fnew)
 	
 def parse_code(url,type):
 	match = re.findall('\d+',url)
@@ -517,11 +516,18 @@ def main():
 	login(ID,PW)
 	divider()
 
-	f = Figlet(font='slant')
-	text = f.renderText('GENIE-DL')
-	title = text
+	text='''===================================================
+|     _____________   ____________     ____  __   |
+|    / ____/ ____/ | / /  _/ ____/    / __ \/ /   |
+|   / / __/ __/ /  |/ // // __/______/ / / / /    |
+|  / /_/ / /___/ /|  // // /__/_____/ /_/ / /___  |
+|  \____/_____/_/ |_/___/_____/    /_____/_____/  |
+|                                                 |
+===================================================
+	 GENIE-DL v.1.0.5 by vank0n (SJJeon)
+	'''
 	options = ['Download Song / Album / Artist / Playlist', 'Download Real-Time Chart', 'View Real-Time Chart', 'Search and Download Song','Search and Download Album','Search and Download Artist','Exit']
-	selected = pick(options, title, multiselect=False, min_selection_count=1,indicator="=>")[1]
+	selected = pick(options, text, multiselect=False, min_selection_count=1,indicator="=>")[1]
 	if selected == 0:
 		CODE = parse_user_input(input("Enter URL: "))
 		parse_track_data(CODE,BITRATE)
