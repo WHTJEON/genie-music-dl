@@ -15,7 +15,7 @@ import configparser
 import questionary
 from utils import download
 
-parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021 vank0n (SJJeon) - All Rights Reserved.\033[0m',epilog="https://github.com/WHTJEON/genie-dl")
+parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021 vank0n (SJJeon) - All Rights Reserved.\033[0m',epilog="https://github.com/WHTJEON/genie-music-downloader")
 parser.add_argument('-c', '--download-chart',action='store_true',help = "Download Genie TOP 200 Chart")
 parser.add_argument('-i','--input',default=None,required=False,help = "Download Genie Song/Album/Playlist",metavar="URL")
 args = parser.parse_args()
