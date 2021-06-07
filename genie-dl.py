@@ -5,7 +5,6 @@ import os
 import shutil
 import re
 import pathlib
-
 import argparse
 import platform
 from datetime import datetime
@@ -18,11 +17,13 @@ from utils import download
 parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021 vank0n (SJJeon) - All Rights Reserved.\033[0m',epilog="https://github.com/WHTJEON/genie-music-downloader")
 parser.add_argument('-c', '--download-chart',action='store_true',help = "Download Genie TOP 200 Chart")
 parser.add_argument('-i','--input',default=None,required=False,help = "Download Genie Song/Album/Playlist",metavar="URL")
+parser.add_argument('--reset',action='store_true',help="Reset Credentials")
 args = parser.parse_args()
 
 INPUT_URL = args.input
 SEARCH_AMOUNT = 20
 DOWNLOAD_CHART = args.download_chart
+RESET_P = args.reset
 BITRATE = '320'
 EXTENSION = "mp3"
 DEVICE_ID = "002ebf12-a125-5ddf-a739-67c3c5d20177"
@@ -35,21 +36,33 @@ def read_config():
 	global ID, PW
 	config = configparser.ConfigParser()
 	config_file = "%s/genie-dl-settings.ini"%SCRIPT_PATH
-	if pathlib.Path(config_file).is_file():
-		config.read(SCRIPT_PATH+'/genie-dl-settings.ini')
-		ID = config['DEFAULT']['genie_id']
-		PW = config['DEFAULT']['genie_password']
-		
+	if RESET_P != True:
+		if pathlib.Path(config_file).is_file():
+			config.read(SCRIPT_PATH+'/genie-dl-settings.ini')
+			ID = config['DEFAULT']['genie_id']
+			PW = config['DEFAULT']['genie_password']
+			
+		else:
+			print("No config file is found. Creating a new one...")
+			ID = questionary.text("Enter your Genie ID: ",qmark=">").ask()
+			PW = questionary.password("Enter Genie Password: ",qmark=">").ask()
+			config['DEFAULT']['genie_id'] = ID
+			config['DEFAULT']['genie_password'] = PW
+	
+			with open(config_file, 'w') as configfile:
+				config.write(configfile)
+			print("Successfully created config file!")
 	else:
-		print("No config file is found. Creating a new one...")
+		print("Resetting Config File..")
 		ID = questionary.text("Enter your Genie ID: ",qmark=">").ask()
 		PW = questionary.password("Enter Genie Password: ",qmark=">").ask()
 		config['DEFAULT']['genie_id'] = ID
 		config['DEFAULT']['genie_password'] = PW
-
+		
 		with open(config_file, 'w') as configfile:
 			config.write(configfile)
-		print("Successfully created config file!")
+		print("Successfully resetted config file!")
+		
 		
 def is_win():
 	if platform.system() == 'Windows':
@@ -114,7 +127,9 @@ def login(username,password):
 	response = requests.post("https://app.genie.co.kr/member/j_Member_Login.json",data=credentials).json()
 	if response['Result']['RetCode'] != "0":
 		LOGIN = False
-		print("Authentication failed.")
+		divider()
+		print("[error] Authentication failed. Check your credentials.")
+		divider()
 		exit()
 	else:
 		LOGIN = True
@@ -554,19 +569,19 @@ def main():
 	
 	divider()
 	
+if __name__ == "__main__":
+	if DOWNLOAD_CHART != True and INPUT_URL == None:
+		main()
 	
-if DOWNLOAD_CHART != True and INPUT_URL == None:
-	main()
-
-else:
-	read_config()
-	login(ID,PW)
-	
-	if DOWNLOAD_CHART == True:
-		download_realtime_chart(1,200)
-	
-	elif INPUT_URL != None:
-		parse_user_input(INPUT_URL)
-	
-	divider()
+	else:
+		read_config()
+		login(ID,PW)
+		
+		if DOWNLOAD_CHART == True:
+			download_realtime_chart(1,200)
+		
+		elif INPUT_URL != None:
+			parse_user_input(INPUT_URL)
+		
+		divider()
 	
