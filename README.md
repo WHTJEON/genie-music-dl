@@ -8,7 +8,7 @@
 
 ---
 
-## Features (지원기능) 
+## Features
 * 단일 트랙 다운로드 (Download track)
 * 앨범 전체 다운로드 (Download Album)
 * 아티스트 전곡 다운로드 (Download Artist)
@@ -23,7 +23,7 @@
 * Python 3.7 or later
 * 지니뮤직 스트리밍 이용권 (종류 상관 X)
 
-### Installation (설치)
+### Installation
 1. Clone the repo
  ```sh
  $ git clone https://github.com/WHTJEON/genie-music-downloader.git
@@ -34,21 +34,21 @@
  $ pip install -r requirements.txt
  ```
 
-## Instructions (사용방법)
-1. 반응형 실행 후 옵션 선택
+## Instructions
+1. Interactive Mode (More Features)
 ```
 $ python3 genie-dl.py
 ```
-<img width="720" alt="스크린샷 2021-06-05 오후 8 59 39" src="https://user-images.githubusercontent.com/57805304/120890975-0096f880-c641-11eb-857a-9a541b4a5fbb.png">
+<img width="720" alt="스크린샷 2021-06-05 오후 8 59 39" src="https://user-images.githubusercontent.com/57805304/120960806-8cbb3400-c797-11eb-93f4-14a956bb2bd1.png">
 
-2. 인자 실행 (-i "Song, Album, Artist, Playlist URL")
+2. Argument Mode (-i "Song, Album, Artist, Playlist URL")
 ```
 $ python3 genie-dl.py -i "https://www.genie.co.kr/detail/albumInfo?axnm=82038886"
 ```
-<img width="818" alt="스크린샷 2021-06-05 오후 9 01 39" src="https://user-images.githubusercontent.com/57805304/120891013-3f2cb300-c641-11eb-8fab-b14341925bd2.png">
+<img width="720" alt="스크린샷 2021-06-05 오후 9 01 39" src="https://user-images.githubusercontent.com/57805304/120960799-8a58da00-c797-11eb-8406-4a0d7ba1b3ec.png">
 
 
-## To be updated (업데이트 예정)
+## To be updated
 * FLAC 다운로드 기능
 * UI 개선
 * Settings 
