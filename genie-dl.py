@@ -2,11 +2,13 @@ import requests
 import json
 import os
 #import eyed3
+import sys
 import shutil
 import re
 import pathlib
 import argparse
 import platform
+import signal
 from datetime import datetime
 from datetime import date
 from pick import pick
@@ -570,18 +572,21 @@ def main():
 	divider()
 	
 if __name__ == "__main__":
-	if DOWNLOAD_CHART != True and INPUT_URL == None:
-		main()
+	try:
+		if DOWNLOAD_CHART != True and INPUT_URL == None:
+			main()
+		
+		else:
+			read_config()
+			login(ID,PW)
+			divider()
+			if DOWNLOAD_CHART == True:
+				download_realtime_chart(1,200)
+			
+			elif INPUT_URL != None:
+				parse_user_input(INPUT_URL)
+			
+			divider()
 	
-	else:
-		read_config()
-		login(ID,PW)
-		
-		if DOWNLOAD_CHART == True:
-			download_realtime_chart(1,200)
-		
-		elif INPUT_URL != None:
-			parse_user_input(INPUT_URL)
-		
-		divider()
-	
+	except KeyboardInterrupt: 
+		sys.exit(128 + signal.SIGINT)
