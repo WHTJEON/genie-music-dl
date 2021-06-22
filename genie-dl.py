@@ -70,9 +70,9 @@ def is_win():
 	if platform.system() == 'Windows':
 		return True
 
-def clean_str(str):
+def rm_illegal_character(str):
 	if is_win():
-		return re.sub(r'[\/:*?"><|]', '_', str)
+		return re.sub('[\/:*?"><|]','_',str)
 	else:
 		return re.sub('/', '_', str)
 
@@ -244,7 +244,7 @@ def get_artist_albums(xxnm):
 def download_album(axnm):
 	parse_album_data(axnm)
 	k = 0
-	DOWNLOAD_PATH = OUTPUT_PATH+"%s/%s %s/"%(ALBUM_ARTIST,ALBUM_DATE,ALBUM_NAME)
+	DOWNLOAD_PATH = OUTPUT_PATH+"%s/%s %s/"%(rm_illegal_character(ALBUM_ARTIST),ALBUM_DATE,rm_illegal_character(ALBUM_NAME))
 	if not os.path.exists(DOWNLOAD_PATH):
 		os.makedirs(DOWNLOAD_PATH)
 	print("[info] Downloading Tracks of [%s]\n"%ALBUM_NAME)
@@ -255,7 +255,7 @@ def download_album(axnm):
 			if IS_VALID == False:
 				print("%s. Track Unavailable. Skipping Download"%i)
 			else:
-				f = clean_str("%s. %s - %s"%(prettifyNUM(i),ARTIST_NAME,str(ALBUM_TRACK_TITLES[i])))
+				f = rm_illegal_character("%s. %s - %s"%(prettifyNUM(i),ARTIST_NAME,str(ALBUM_TRACK_TITLES[i])))
 				filename = DOWNLOAD_PATH+f
 				taskname = "%s. %s"%(i,ALBUM_TRACK_TITLES[i])
 				download_track(DOWNLOAD_URL,filename,taskname)
@@ -273,7 +273,7 @@ def download_playlist(seq):
 		if IS_VALID == False:
 			print("%s. Track Unavailable. Skipping Download"%i)
 		else:
-			f = "%s. %s - %s"%(prettifyNUM(i+1),ARTIST_NAME,clean_str(str(PLAYLIST_TRACK_TITLES[i])))
+			f = "%s. %s - %s"%(prettifyNUM(i+1),ARTIST_NAME,rm_illegal_character(str(PLAYLIST_TRACK_TITLES[i])))
 			filename = DOWNLOAD_PATH+f
 			taskname = "%s. %s"%(i+1,PLAYLIST_TRACK_TITLES[i])
 			download_track(DOWNLOAD_URL,filename,taskname)
@@ -337,7 +337,7 @@ def download_realtime_chart(start,end):
 			print("%s. Track Unavailable. Skipping Download"%i)
 		else:
 			f = "%s. %s - %s"%(prettifyNUM(k),ARTIST_NAME,SONG_NAME)
-			filename = DOWNLOAD_PATH+clean_str(f)
+			filename = DOWNLOAD_PATH+rm_illegal_character(f)
 			taskname = "%s. %s"%(k,SONG_NAME)
 			download_track(DOWNLOAD_URL,filename,taskname)
 			
