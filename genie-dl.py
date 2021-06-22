@@ -17,7 +17,7 @@ import questionary
 from utils import download
 
 parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021 vank0n (SJJeon) - All Rights Reserved.\033[0m',epilog="https://github.com/WHTJEON/genie-music-downloader")
-parser.add_argument('-c', '--download-chart',action='store_true',help = "Download Genie TOP 200 Chart")
+parser.add_argument('-c', '--download-chart',default=None,help = "Download Genie TOP 200 Chart",metavar="RANGE")
 parser.add_argument('-i','--input',default=None,required=False,help = "Download Genie Song/Album/Playlist",metavar="URL")
 parser.add_argument('--reset',action='store_true',help="Reset Credentials")
 args = parser.parse_args()
@@ -33,6 +33,7 @@ DEVICE_ID = "002ebf12-a125-5ddf-a739-67c3c5d20177"
 SCRIPT_PATH = str(pathlib.Path(__file__).parent.absolute())
 #SCRIPT_PATH = str(pathlib.Path.home())
 OUTPUT_PATH = SCRIPT_PATH + "/downloads/"
+
 
 def read_config():
 	global ID, PW
@@ -113,7 +114,7 @@ def parse_code(url,type):
 	except IndexError:
 		print("[error] Invalid URL: %s"%url)
 		divider()
-		exit()
+		sys.exit(1)
 		
 def download_track(url,filename,taskname):
 	download.download(url,file_name="%s.%s"%(filename,EXTENSION),name=taskname,block_size=512)
@@ -132,7 +133,7 @@ def login(username,password):
 		divider()
 		print("[error] Authentication failed. Check your credentials.")
 		divider()
-		exit()
+		sys.exit(1)
 	else:
 		LOGIN = True
 	user_num = response['DATA0']['MemUno']
@@ -155,7 +156,7 @@ def parse_playlist_data (seq):
 	except KeyError:
 		print("[error] Unable to fetch playlist data. Check your URL")
 		divider()
-		exit()
+		sys.exit(1)
 		
 def parse_album_data(axnm):
 	global ALBUM_TRACK_CODES,ALBUM_TRACK_TITLES,ALBUM_NAME,ALBUM_TRACK_COUNT, ALBUM_DATE, ALBUM_TYPE, ALBUM_ARTIST
@@ -188,7 +189,7 @@ def parse_album_data(axnm):
 	except KeyError:
 		print("[error] Unable to fetch album data. Check your URL")
 		divider()
-		exit()
+		sys.exit(1)
 
 def parse_artist_data(xxnm):
 	global ARTIST_NAME_FIX
@@ -201,7 +202,7 @@ def parse_artist_data(xxnm):
 	except KeyError:
 		print("[error] Unable to fetch artist data. Check your URL")
 		divider()
-		exit()
+		sys.exit(1)
 		
 def parse_track_data(xgnm,bitrate):
 	global ARTIST_NAME,SONG_NAME,DOWNLOAD_URL,IS_VALID
@@ -222,7 +223,7 @@ def parse_track_data(xgnm,bitrate):
 	except KeyError:
 		print("[error] Unable to fetch track data. Check your URL")
 		divider()
-		exit()
+		sys.exit(1)
 	
 	except:
 		print(response)
@@ -239,7 +240,7 @@ def get_artist_albums(xxnm):
 			ARTIST_ALBUMS.append(ALBUM_CODE)
 	except KeyError:
 		print("The following artist is unavailable to fetch albums")
-		exit()
+		sys.exit(1)
 			
 def download_album(axnm):
 	parse_album_data(axnm)
@@ -388,7 +389,7 @@ def search_track(keyword,amount):
 			continue
 		
 	if cnt == False:
-		exit()
+		sys.exit(1)
 	else:
 		parse_track_data(SELECTED_TRACK_CODE, BITRATE)
 		print("[info] Downloading %s - %s\n"%(ARTIST_NAME,SONG_NAME))
@@ -442,7 +443,7 @@ def search_album(keyword,amount):
 			continue
 		
 	if cnt == False:
-		exit()
+		sys.exit(1)
 	else:
 		download_album(SELECTED_ALBUM_CODE)
 		
@@ -463,7 +464,7 @@ def search_artist(keyword,amount):
 			ARTIST_SEARCH_RESULTS_NAME [i] = decode(response['searchResult']['result']['artists']['items'][i]['artist_name']['original'])
 			ARTIST_SEARCH_RESULTS_CODE [i] = int(response['searchResult']['result']['artists']['items'][i]['artist_id'])
 		except IndexError:
-			exit()
+			sys.exit(1)
 	print("Here are the search results for %s:\n"%keyword)
 	for i in range(0,amount,1):
 		RESULT_STRING = "%s. %s"%(i+1,ARTIST_SEARCH_RESULTS_NAME[i])
@@ -491,7 +492,7 @@ def search_artist(keyword,amount):
 			continue
 		
 	if cnt == False:
-		exit()
+		sys.exit(1)
 	else:
 		download_artist(SELECTED_ARTIST_CODE)
 		
@@ -527,7 +528,7 @@ def parse_user_input(url):
 	else:
 		print("[error] Invalid URL: %s"%url)
 		divider()
-		exit()
+		sys.exit(1)
 
 
 def main():
@@ -567,21 +568,27 @@ def main():
 	elif selected == 5:
 		search_artist(input("Enter Search Keyword: "),SEARCH_AMOUNT)
 	elif selected == 6:
-		exit()
+		sys.exit(1)
 	
 	divider()
 	
 if __name__ == "__main__":
 	try:
-		if DOWNLOAD_CHART != True and INPUT_URL == None:
+		if DOWNLOAD_CHART == None and INPUT_URL == None:
 			main()
 		
 		else:
 			read_config()
 			login(ID,PW)
 			divider()
-			if DOWNLOAD_CHART == True:
-				download_realtime_chart(1,200)
+			if DOWNLOAD_CHART != None:
+				c = DOWNLOAD_CHART.split("-")
+				CHART_START = int(c[0])
+				
+				CHART_END = int(c[1])
+				if CHART_END >= 200:
+					CHART_END = 200
+				download_realtime_chart(CHART_START,CHART_END)
 			
 			elif INPUT_URL != None:
 				parse_user_input(INPUT_URL)
