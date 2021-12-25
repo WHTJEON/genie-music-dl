@@ -20,14 +20,21 @@ parser = argparse.ArgumentParser(description='\033[93mGENIE-DL by vank0n © 2021
 parser.add_argument('-c', '--download-chart',default=None,help = "Download Genie TOP 200 Chart",metavar="RANGE")
 parser.add_argument('-i','--input',default=None,required=False,help = "Download Genie Song/Album/Playlist",metavar="URL")
 parser.add_argument('--reset',action='store_true',help="Reset Credentials")
+parser.add_argument('-f','--format',choices=["mp3", "flac", "flac24"],default='mp3')
 args = parser.parse_args()
+
+if args.format == "mp3":
+	BITRATE = 320
+	EXTENSION = "mp3"
+	
+else:
+	EXTENSION = "flac"
+	BITRATE = 1000 if args.format == "flac" else "24bit"
 
 INPUT_URL = args.input
 SEARCH_AMOUNT = 20
 DOWNLOAD_CHART = args.download_chart
 RESET_P = args.reset
-BITRATE = '320'
-EXTENSION = "mp3"
 DEVICE_ID = "002ebf12-a125-5ddf-a739-67c3c5d20177"
 
 SCRIPT_PATH = str(pathlib.Path(__file__).parent.absolute())
@@ -75,7 +82,7 @@ def rm_illegal_character(str):
 	if is_win():
 		return re.sub('[\/:*?"><|]','_',str)
 	else:
-		return re.sub('/', '_', str)
+		return re.sub('[:/]', '_', str)
 
 def divider():
 	count = int(shutil.get_terminal_size().columns)
